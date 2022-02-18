@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: guestbook-appset
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: 'https://github.com/SkPhilipp/argocd-testing.git'
+        revision: master
+        files:
+          - path: appset-entries/*.yml
+  syncPolicy:
+    preserveResourcesOnDeletion: false
+  template:
+    metadata:
+      name: 'guestbook-{{id}}'
+    spec:
+      destination:
+        namespace: examples
+        server: https://kubernetes.default.svc
+      project: default
+      source:
+        path: guestbook
+        repoURL: https://github.com/argoproj/argocd-example-apps.git
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=false
+          - validate=false
+        automated:
+          prune: true
+          selfHeal: true
