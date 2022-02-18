@@ -11,7 +11,7 @@ spec:
         files:
           - path: appset-entries/*.yml
   syncPolicy:
-    preserveResourcesOnDeletion: false
+    preserveResourcesOnDeletion: true
   template:
     metadata:
       name: 'guestbook-{{id}}'
