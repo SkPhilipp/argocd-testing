@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: guestbook-appset
+  name: guestbook-appset-renamed
   namespace: argocd
 spec:
   generators:
@@ -28,5 +28,5 @@ spec:
           - CreateNamespace=false
           - validate=false
         automated:
-          prune: true
+          prune: false
           selfHeal: true
